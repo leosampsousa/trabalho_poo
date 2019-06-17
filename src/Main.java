@@ -15,10 +15,10 @@ public class Main {
 		new Funcionario("Funcionario3", "3", 300);
 		new Funcionario("Funcionario4", "4", 400);
 		
-		new Produto("Produto1", 10, 20, 10);
-		new Produto("Produto2", 10, 20, 10);
-		new Produto("Produto3", 10, 20, 10);
-		new Produto("Produto4", 10, 20, 10);
+		new Perfume("Produto1", 10, 20, 10);
+		new Sabonete("Produto2", 10, 20, 10);
+		new Shampoo("Produto3", 10, 20, 10);
+		new Desodorante("Produto4", 10, 20, 10);
 		
 		System.out.println(Loja.getInstancia().toString());
 		
@@ -42,7 +42,7 @@ public class Main {
 
 		System.out.println("1 - Realizar venda");
 		System.out.println("2 - Consultar informações dos clientes");
-		//System.out.println("3 - Consultar informações dos produtos");
+		System.out.println("3 - Consultar informações dos produtos");
 		System.out.println("4 - Consultar informações dos funcionários");
 		System.out.println("5 - Consultar informações de compras");
 		System.out.println("6 - Consultar estoque");
@@ -68,7 +68,7 @@ public class Main {
 		} else if(auxiliador.equals("2")) {
 			abrirMenuCliente(ler);
 		} else if(auxiliador.equals("3")) {
-			//Loja.getInstancia().cadastrarProduto(ler);
+			abrirMenuProduto(ler);
 		} else if(auxiliador.equals("4")) {
 			abrirMenuFuncionario(ler);
 		} else if(auxiliador.equals("5")){
@@ -112,6 +112,46 @@ public class Main {
 		
 	}
 	
+	private static void abrirMenuProduto(Scanner ler) {
+		System.out.println("-------------------");
+		System.out.println("Produtos");
+		System.out.println("-------------------");
+		System.out.println("1 - Cadastrar Produto");
+		System.out.println("2 - Remover Produto");
+		System.out.println("3 - Sair");
+			
+		String auxiliador = "";
+		boolean entradaErrada = true;
+		while(entradaErrada) {
+			System.out.printf("Informe a sua entrada:\n");
+			auxiliador = ler.next();
+			if(!auxiliador.equals("1") && !auxiliador.equals("2") && !auxiliador.equals("3") && !auxiliador.equals("4")) {
+				System.out.printf("Entrada inv�lida:\n");
+			}else {entradaErrada = false;}
+		}
+		
+		if(auxiliador.equals("1")) {
+			EstoqueProdutos.getInstancia().cadastrarProduto(ler);
+		} else if(auxiliador.equals("2")) {
+			System.out.printf("Deseja remover todo o produto do estoque ou apenas uma unidade?\n");
+			System.out.printf("1 - Tudo\n");
+			System.out.printf("2 - Unidade\n");
+			int entrada = ler.nextInt();
+			if(entrada == 1) {
+				System.out.printf("Digite o nome do produto: \n");
+				String nomeProduto = ler.next();
+				EstoqueProdutos.getInstancia().removerProduto(nomeProduto);
+			}else {
+				System.out.printf("Digite o nome do produto: \n");
+				String nomeProduto = ler.next();
+				EstoqueProdutos.getInstancia().removerProdutoUnidade(nomeProduto);
+			}
+		} else{
+			abrirMenu();
+		} 
+		
+	}
+	
 	private static void abrirMenuFuncionario(Scanner ler) {
 		System.out.println("-------------------");
 		System.out.println("Funcionários");
@@ -147,7 +187,6 @@ public class Main {
 		System.out.println("-------------------");
 		System.out.println("1 - Listar produtos");
 		System.out.println("2 - Listar mais vendidos");
-		System.out.println("3 - Cadastrar produto");
 		System.out.println("4 - Sair");
 			
 		String auxiliador = "";

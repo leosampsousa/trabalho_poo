@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class EstoqueProdutos {
 	List<Produto> listaProdutos = new ArrayList<Produto>();
@@ -24,6 +25,71 @@ public class EstoqueProdutos {
 	public void setListaProtudos(List<Produto> listaProdutos) {
 		this.listaProdutos = listaProdutos;
 	}
+	
+	public void cadastrarProduto(Scanner ler) {
+		
+		System.out.println("Digite o produto que quer cadastrar");
+		System.out.println("1 - Perfume");
+		System.out.println("2 - Sabonete");
+		System.out.println("3 - Shampoo");
+		System.out.println("4 - Desodorante");
+		int tipoProduto = ler.nextInt();
+		
+		System.out.printf("Digite o nome do Produto:\n");
+		String nomeProduto = ler.next();
+		
+		System.out.printf("Digite o preço que o produto foi comprado:\n");
+		double precoCompra = ler.nextDouble();
+		
+		System.out.printf("Digite o preço que o produto será vendido:\n");
+		double precoVenda = ler.nextDouble();
+		
+		System.out.printf("Digite a quantidade de produtos no estoque:\n");
+		int qtProduto = ler.nextInt();
+		
+		if(tipoProduto == 1) {
+			new Perfume(nomeProduto, precoCompra, precoVenda, qtProduto);
+		}else if(tipoProduto == 2) {
+			new Sabonete(nomeProduto, precoCompra, precoVenda, qtProduto);
+		}else if(tipoProduto == 3) {
+			new Shampoo(nomeProduto, precoCompra, precoVenda, qtProduto);
+		}else {
+			new Desodorante(nomeProduto, precoCompra, precoVenda, qtProduto);
+		}
+	
+	}
+	
+	public void adicionarProduto(String nomeProduto) {
+		for(int i = 0; i < listaProdutos.size(); i++) {
+			if(listaProdutos.get(i).getNome().equals(nomeProduto)) {
+				int qtAtual = listaProdutos.get(i).getQtProduto();
+				listaProdutos.get(i).setQtProduto(qtAtual + 1);
+			}
+		}
+	}
+	
+	public void removerProduto(String nomeProduto) {
+		for(int i = 0; i < listaProdutos.size(); i++) {
+			if(listaProdutos.get(i).getNome().equals(nomeProduto)) {
+				listaProdutos.remove(i);
+			}
+		}
+	}
+	
+	public void removerProdutoUnidade(String nomeProduto) {
+		for(int i = 0; i < listaProdutos.size(); i++) {
+			if(listaProdutos.get(i).getNome().equals(nomeProduto)) {
+				int qtAtual = listaProdutos.get(i).getQtProduto();
+				if(qtAtual <=0) {
+					listaProdutos.get(i).setQtProduto(0);
+				}else {
+					listaProdutos.get(i).setQtProduto(qtAtual - 1);
+				}
+			}
+		}
+	}
+	
+
 	
 	public List<Produto> listarMaisVendidos(int quantidade){
 		

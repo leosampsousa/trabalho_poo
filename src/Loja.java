@@ -103,20 +103,6 @@ public class Loja {
 		
 	}
 	
-	public void cadastrarProduto(Scanner ler) {
-		
-		System.out.printf("Digite o nome do Produto:\n");
-		String nomeProduto = ler.next();
-		System.out.printf("Digite o preço que o produto foi comprado:\n");
-		double precoCompra = ler.nextDouble();
-		System.out.printf("Digite o preço que o produto será vendido:\n");
-		double precoVenda = ler.nextDouble();
-		System.out.printf("Digite a quantidade de produtos no estoque:\n");
-		int qtProduto = ler.nextInt();
-		
-		new Produto(nomeProduto, precoCompra, precoVenda, qtProduto);
-		
-	}
 	
 	public Cliente cadastrarCliente(String cpfCliente, Scanner ler) {
 		

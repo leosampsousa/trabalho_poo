@@ -7,11 +7,7 @@ public class Produto {
 	double precoVenda;
 	int qtProduto;
 	int qtVendidos;
-	
-	 private static final AtomicInteger count = new AtomicInteger(0); 
-	
-	
-	
+	private static final AtomicInteger count = new AtomicInteger(0); 
 	
 	public Produto(String nome, double precoCompra, double precoVenda, int qtProduto) {
 		this.id = count.incrementAndGet();

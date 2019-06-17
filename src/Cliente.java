@@ -62,8 +62,11 @@ public abstract class Cliente {
 
 	@Override
 	public String toString() {
-		return "Cliente [nome=" + nome + ", cpf=" + cpf + ", telefone=" + telefone + ", pontos=" + pontos
-				+ ", listaCompras=" + listaCompras + "]";
+		return "nome=" + nome + "\n"+ "\t" +
+				"cpf=" + cpf + "\n" + "\t" +
+				"telefone=" + telefone + "\n" + "\t" + 
+				"pontos=" + pontos + "\n" + "\t" +
+				"listaCompras=" + listaCompras + "\n";
 	}
 	
 	
