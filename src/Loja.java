@@ -118,7 +118,6 @@ public class Loja {
 	
 	public void adicionaEmListaFuncionario(String nome, String cpf, double salario) {
 		Funcionario f = new Funcionario(nome, cpf, salario);
-		this.listaFuncionarios.add(f);
 	}
 	
 	
@@ -164,10 +163,10 @@ public class Loja {
 				/* Realizar exclusão desse cliente em listaClientes (Pendência) */
 				new ClienteVip(auxiliar.nome, auxiliar.cpf, auxiliar.telefone, auxiliar.pontos);				
 			}else {
-				throw new Exception("O cliente não possui pontos suficiente para tornar-se Vip.");
+				throw new Exception("O cliente n�o possui pontos suficiente para tornar-se Vip.");
 			}
 		}else {
-			throw new Exception("O cliente não se encontra na categoria ClienteComum para poder tornar-se Vip.");
+			throw new Exception("O cliente n�o se encontra na categoria ClienteComum para poder tornar-se Vip.");
 		}
 	}
 	
@@ -181,6 +180,7 @@ public class Loja {
 				throw new Exception("O cliente não possui pontos suficiente para tornar-se Premium.");
 			}
 		}else {
+
 			throw new Exception("O cliente não se encontra na categoria ClienteVip para poder tornar-se Premium.");
 		}
 	}
