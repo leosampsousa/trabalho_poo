@@ -14,11 +14,29 @@ public class Main {
 		new Funcionario("Funcionario2", "2", 200);
 		new Funcionario("Funcionario3", "3", 300);
 		new Funcionario("Funcionario4", "4", 400);
+		new Funcionario("Funcionario4", "5", 250);
+		new Funcionario("Funcionario4", "6", 300);
+		new Funcionario("Funcionario4", "7", 250);
+		new Funcionario("Funcionario4", "8", 350);
+		new Funcionario("Funcionario4", "9", 400);
+		new Funcionario("Funcionario4", "10", 150);
 		
-		new Perfume("Produto1", 10, 20, 10);
-		new Sabonete("Produto2", 10, 20, 10);
-		new Shampoo("Produto3", 10, 20, 10);
-		new Desodorante("Produto4", 10, 20, 10);
+		new Perfume("Perfume1", 10, 20, 23);
+		new Perfume("Perfume2", 10, 20, 17);
+		new Perfume("Perfume3", 10, 20, 15);
+		new Perfume("Perfume4", 10, 20, 12);
+		new Sabonete("Sabonete1", 10, 20, 14);
+		new Sabonete("Sabonete2", 10, 20, 30);
+		new Sabonete("Sabonete3", 10, 20, 21);
+		new Sabonete("Sabonete4", 10, 20, 10);
+		new Shampoo("Shampoo1", 10, 20, 11);
+		new Shampoo("Shampoo2", 10, 20, 13);
+		new Shampoo("Shampoo3", 10, 20, 14);
+		new Shampoo("Shampoo4", 10, 20, 17);
+		new Desodorante("Desodorante1", 10, 20, 10);
+		new Desodorante("Desodorante2", 10, 20, 8);
+		new Desodorante("Desodorante3", 10, 20, 12);
+		new Desodorante("Desodorante4", 10, 20, 15);
 		
 		System.out.println(Loja.getInstancia().toString());
 		
@@ -186,8 +204,10 @@ public class Main {
 		System.out.println("Estoque");
 		System.out.println("-------------------");
 		System.out.println("1 - Listar produtos");
-		System.out.println("2 - Listar mais vendidos");
-		System.out.println("4 - Sair");
+		System.out.println("2 - Listar produtos mais vendidos");
+		System.out.println("3 - Listar produtos por categoria");
+		System.out.println("4 - Listar produtos mais vendidos por categoria");
+		System.out.println("5 - Sair");
 			
 		String auxiliador = "";
 		boolean entradaErrada = true;
@@ -207,7 +227,23 @@ public class Main {
 			
 			System.out.println(EstoqueProdutos.getInstancia().listarMaisVendidos(quantidade));
 		} else if(auxiliador.equals("3")) {
-			System.out.println(Loja.getInstancia().getListaClientes().toString());
+			System.out.println("Digite de qual categoria voce deseja ver os produtos");
+			System.out.println("1 - Perfume");
+			System.out.println("2 - Sabonete");
+			System.out.println("3 - Shampoo");
+			System.out.println("4 - Desodorante");
+			int entrada = ler.nextInt();
+			System.out.println(EstoqueProdutos.getInstancia().listarPorCategoria(entrada).toString());
+		} else if(auxiliador.equals("4")) {
+			System.out.println("Digite de qual categoria voce deseja ver os produtos mais vendidos");
+			System.out.println("1 - Perfume");
+			System.out.println("2 - Sabonete");
+			System.out.println("3 - Shampoo");
+			System.out.println("4 - Desodorante");
+			int entrada1 = ler.nextInt();
+			System.out.println("Digite a quantidade de produtos que deseja ver");
+			int entrada2 = ler.nextInt();
+			System.out.println(EstoqueProdutos.getInstancia().listarMaisVendidosPorCategoria(entrada2, entrada1).toString());
 		} else {
 			abrirMenu();
 		}

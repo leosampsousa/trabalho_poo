@@ -89,7 +89,41 @@ public class EstoqueProdutos {
 		}
 	}
 	
-
+	public List<Produto> listarPorCategoria(int categoria){
+		List<Produto> lista = this.listaProdutos;
+		List<Produto> listaCategoria = new ArrayList<Produto>();
+		
+		if(categoria == 1) {
+			for(int i = 0; i < lista.size(); i++) {
+				if(lista.get(i) instanceof Perfume) {
+					listaCategoria.add(lista.get(i));
+				}
+			}
+			return listaCategoria;
+		}else if(categoria == 2) {
+			for(int i = 0; i < lista.size(); i++) {
+				if(lista.get(i) instanceof Sabonete) {
+					listaCategoria.add(lista.get(i));
+				}
+			
+			}
+			return listaCategoria;	
+		}else if(categoria == 3) {
+			for(int i = 0; i < lista.size(); i++) {
+				if(lista.get(i) instanceof Shampoo) {
+					listaCategoria.add(lista.get(i));
+				}
+			}
+			return listaCategoria;
+		}else {
+			for(int i = 0; i < lista.size(); i++) {
+				if(lista.get(i) instanceof Desodorante) {
+					listaCategoria.add(lista.get(i));
+				}
+			}
+			return listaCategoria;
+		}
+	}
 	
 	public List<Produto> listarMaisVendidos(int quantidade){
 		
@@ -107,10 +141,7 @@ public class EstoqueProdutos {
 		
 		quickSort(vetorQtvendidos, ids, 0, lista.size() - 1);
 		
-		for(int i = 0; i < ids.length; i++) {
-				System.out.println(ids[i]);
-			}
-				
+		
 		for(int i = ids.length - 1; i >= ids.length - quantidade ; i--) {
 			for(int j = 0; j < lista.size(); j++) {
 				if(ids[i] == lista.get(j).getId()) {
@@ -137,6 +168,60 @@ public class EstoqueProdutos {
 	@Override
 	public String toString() {
 		return "EstoqueProdutos [listaProdutos=" + listaProdutos + "]";
+	}
+	
+	public List<Produto> listarMaisVendidosPorCategoria(int quantidade,int categoria){
+		List<Produto> lista = this.listaProdutos;
+		List<Produto> listaMaisVendidos = new ArrayList<Produto>();
+		int listaCategoria[] = new int[listaProdutos.size()];
+		int listaCategoriaID[] = new int[listaProdutos.size()];
+		
+		
+		if(categoria == 1) {
+			for(int i = 0; i < lista.size(); i++) {
+				if(lista.get(i) instanceof Perfume) {
+					listaCategoria[i] = lista.get(i).getQtVendidos();
+					listaCategoriaID[i] = lista.get(i).getId();
+				}
+			}
+			
+		}else if(categoria == 2) {
+			for(int i = 0; i < lista.size(); i++) {
+				if(lista.get(i) instanceof Sabonete) {
+					listaCategoria[i] = lista.get(i).getQtVendidos();
+					listaCategoriaID[i] = lista.get(i).getId();
+				}
+			
+			}	
+		}else if(categoria == 3) {
+			for(int i = 0; i < lista.size(); i++) {
+				if(lista.get(i) instanceof Shampoo) {
+					listaCategoria[i] = lista.get(i).getQtVendidos();
+					listaCategoriaID[i] = lista.get(i).getId();
+				}
+			}
+			
+		}else {
+			for(int i = 0; i < lista.size(); i++) {
+				if(lista.get(i) instanceof Desodorante) {
+					listaCategoria[i] = lista.get(i).getQtVendidos();
+					listaCategoriaID[i] = lista.get(i).getId();
+				}
+			}
+			
+		}
+		
+		quickSort(listaCategoria, listaCategoriaID, 0, lista.size() - 1);
+		
+		for(int i = listaCategoriaID.length - 1; i >= listaCategoriaID.length - quantidade ; i--) {
+			for(int j = 0; j < lista.size(); j++) {
+				if(listaCategoriaID[i] == lista.get(j).getId()) {
+					listaMaisVendidos.add(lista.get(j));
+				}
+			}
+		}
+		
+		return listaMaisVendidos;
 	}
 	
     private static int separar(int[] vetor_qt, int[] vetor_id, int inicio, int fim) {
