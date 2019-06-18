@@ -14,12 +14,12 @@ public class Main {
 		new Funcionario("Funcionario2", "2", 200);
 		new Funcionario("Funcionario3", "3", 300);
 		new Funcionario("Funcionario4", "4", 400);
-		new Funcionario("Funcionario4", "5", 250);
-		new Funcionario("Funcionario4", "6", 300);
-		new Funcionario("Funcionario4", "7", 250);
-		new Funcionario("Funcionario4", "8", 350);
-		new Funcionario("Funcionario4", "9", 400);
-		new Funcionario("Funcionario4", "10", 150);
+		new Funcionario("Funcionario5", "5", 250);
+		new Funcionario("Funcionario6", "6", 300);
+		new Funcionario("Funcionario7", "7", 250);
+		new Funcionario("Funcionario8", "8", 350);
+		new Funcionario("Funcionario9", "9", 400);
+		new Funcionario("Funcionario10", "10", 150);
 		
 		new Perfume("Perfume1", 10, 20, 23);
 		new Perfume("Perfume2", 10, 20, 17);
@@ -59,10 +59,10 @@ public class Main {
 
 
 		System.out.println("1 - Realizar venda");
-		System.out.println("2 - Consultar informaÃ§Ãµes dos clientes");
-		System.out.println("3 - Consultar informaÃ§Ãµes dos produtos");
-		System.out.println("4 - Consultar informaÃ§Ãµes dos funcionÃ¡rios");
-		System.out.println("5 - Consultar informaÃ§Ãµes de compras");
+		System.out.println("2 - Consultar informações dos clientes");
+		System.out.println("3 - Consultar informações dos produtos");
+		System.out.println("4 - Consultar informações dos funcionários");
+		System.out.println("5 - Consultar informações de compras");
 		System.out.println("6 - Consultar estoque");
 		System.out.println("7 - Sobre");
 		System.out.println("8 - Sair");
@@ -172,10 +172,10 @@ public class Main {
 	
 	private static void abrirMenuFuncionario(Scanner ler) {
 		System.out.println("-------------------");
-		System.out.println("FuncionÃ¡rios");
+		System.out.println("Funcionários");
 		System.out.println("-------------------");
-		System.out.println("1 - Cadastrar FuncionÃ¡rio");
-		System.out.println("2 - Exibir FuncionÃ¡rios");
+		System.out.println("1 - Cadastrar Funcionário");
+		System.out.println("2 - Exibir Funcionários");
 		System.out.println("3 - Sair");
 			
 		String auxiliador = "";
@@ -254,14 +254,24 @@ public class Main {
 	private static void realizarVenda(Scanner ler) {
 		
 		boolean lerProdutos = true;
+        boolean check = false;
 		Cliente cliente = null;
+        Funcionario funcionario = null;
 		List<Produto> listaProdutos = EstoqueProdutos.getInstancia().getListaProdutos();
 		List<Produto> produtos = new ArrayList<Produto>();
 		
-		System.out.printf("Digite o cpf do Vendedor:\n");
-		String cpfVendedor = ler.next();
-		
-		Funcionario funcionario = Loja.getInstancia().verificaFuncionario(cpfVendedor);
+                while(!check){
+                    System.out.printf("Digite o cpf do Vendedor:\n");
+                    String cpfVendedor = ler.next();
+                    funcionario = Loja.getInstancia().verificaFuncionario(cpfVendedor);
+                    if(funcionario == null){
+                        System.out.println("Código de Vendedor não cadastrado. Por favor, tente novamente.");
+                    } else{
+                        check = true;
+                    }
+                }
+                
+                
 		
 		System.out.printf("Digite o cpf do Cliente:\n");
 		String cpfCliente = ler.next();
@@ -269,35 +279,51 @@ public class Main {
 		cliente = Loja.getInstancia().verificaCliente(cpfCliente);
 		
 		if(cliente == null) {
-			System.out.println("Cliente nÃ£o cadastrado. Por favor, realize o cadastro:\n");
+			System.out.println("Cliente não cadastrado. Por favor, realize o cadastro:\n");
 			cliente = Loja.getInstancia().cadastrarCliente(cpfCliente, ler);
 			System.out.println("Cliente cadastrado com sucesso!");
 		} 
 		
-		//LÃª todos os produtos da compra
+		//Lê todos os produtos da compra
 		while (lerProdutos){
+                    try{
+                        check = false;
 			System.out.printf("Informe o codigo do produto:\n");
-			int codigoProduto = ler.nextInt();
+			String codigoProduto = ler.next();
 			
+                        
 			for(int i = 0; i < listaProdutos.size(); i++) {
-				if(listaProdutos.get(i).getId() == codigoProduto) {
+				if(listaProdutos.get(i).getId() == Integer.parseInt(codigoProduto)) {
 					produtos.add(listaProdutos.get(i));
+                                        check = true;
 				}
 			}
+                    } catch(Exception e)   {
+                        System.out.println("Código de produto não identificado.");
+                        continue;
+                    }
+                        if(!check){
+                            System.out.println("Código de produto não identificado.");
+                            continue;
+                        }
 			
-			System.out.printf("Deseja adicionar outro produto? (1 - Sim | 2 - NÃ£o)\n");
-			int adicionarOutroProduto = ler.nextInt();
+			System.out.printf("Deseja adicionar outro produto? (1 - Sim | 2 - Não)\n");
+			String adicionarOutroProduto = ler.next();
 			
-			if(adicionarOutroProduto == 2) {
-				lerProdutos = false;
-			}			
+                        if(adicionarOutroProduto.equals("1")){
+                            continue;
+                        }else if(adicionarOutroProduto.equals("2")) {
+                            lerProdutos = false;
+			}else{
+                            System.out.println("Entrada inválida");
+                        }		
 		}
 		
 		if(produtos != null && cliente != null && funcionario != null){
 			Loja.getInstancia().realizarVenda(produtos, cliente, funcionario);
 			System.out.println("Compra realizada com sucesso.");
 		} else {
-			System.out.println("NÃ£o foi possÃ­vel realizar a compra.");
+			System.out.println("Não foi possível realizar a compra.");
 		}
 
 	}
